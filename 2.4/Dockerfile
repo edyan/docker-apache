@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:jessie
 MAINTAINER Emmanuel Dyan <emmanuel.dyan@inetprocess.com>
 
 RUN sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list
@@ -9,11 +9,11 @@ RUN apt-get update && \
     rm -Rf /var/lib/apt/lists/* && \
     rm -Rf /usr/share/man/* /usr/share/doc/*
 
-COPY vhost.conf /etc/apache2/sites-available/vhost
+COPY vhost.conf /etc/apache2/sites-available/vhost.conf
 
 RUN a2enmod actions fastcgi rewrite && \
-    a2dissite default && \
-    a2ensite vhost && \
+    a2dissite 000-default.conf&& \
+    a2ensite vhost.conf && \
     mkdir /var/lib/php5-fcgi
 
 RUN groupadd php && \
