@@ -25,9 +25,9 @@ A variable has been created (`FPM_GID`) that will be assigned to a new group nam
 
 
 ## Apache version
-To use a specific Apache version, append the version number to the image name. For now only the 2.2 has been created.
-
+To use a specific Apache version, append the version number to the image name.
 Eg: `image: inet/apache:2.2`
 
 The following Apache versions are available:
+* Apache 2.4 (jessie stable)
 * Apache 2.2 (wheezy stable)
