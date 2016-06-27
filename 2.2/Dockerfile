@@ -1,6 +1,5 @@
 FROM debian:wheezy
-
-ENV PHP_GID 1000
+MAINTAINER Emmanuel Dyan <emmanuel.dyan@inetprocess.com>
 
 RUN sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list
 RUN apt-get update \
@@ -20,11 +19,13 @@ RUN a2enmod actions fastcgi rewrite \
 RUN groupadd -g $PHP_GID php && \
     usermod -a -G php www-data
 
-COPY ./run.sh /run.sh
-
 RUN chmod 644 /var/log/apache2
+
+COPY run.sh     /run.sh
+RUN  chmod +x    /run.sh
 
 ENV FPM_GID 1000
 
 EXPOSE 80
+
 CMD ["/run.sh"]
