@@ -12,7 +12,7 @@ RUN apt-get update && \
 COPY vhost.conf /etc/apache2/sites-available/vhost.conf
 
 RUN a2enmod actions fastcgi rewrite && \
-    a2dissite 000-default.conf&& \
+    a2dissite 000-default.conf && \
     a2ensite vhost.conf && \
     mkdir /var/lib/php5-fcgi
 
