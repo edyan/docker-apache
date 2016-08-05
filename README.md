@@ -1,7 +1,6 @@
 # iNet Process Apache Docker Image for PHP FPM
 Docker Hub: https://hub.docker.com/r/inetprocess/apache
 
-
 Docker container containing Apache that connects to an FPM service.
 
 ## Usage
@@ -20,8 +19,16 @@ apache:
 
 ```
 
+
 ## Environment variables
-A variable has been created (`FPM_GID`) that will be assigned to a new group named `php`, that will be added to the  www-data group. See  [inetprocess/php](https://github.com/inetprocess/docker-php).
+Two variables have been created, to override the user and group that owns Apache (and all its files). 
+That's useful if you need to mount a volume and own the files.
+
+These environment variables are `APACHE_UID` and `APACHE_GID`. 
+
+
+## Order of .htaccess
+You can override an `.htaccess` file by putting an `.htaccess.local`, which could be interesting if you have to keep the main file in a git repository.
 
 
 ## Apache version
