@@ -33,7 +33,7 @@ You can override an `.htaccess` file by putting an `.htaccess.local`, which coul
 
 ## Apache version
 To use a specific Apache version, append the version number to the image name.
-Eg: `image: inet/apache:2.2`
+Eg: `image: edyan/apache:2.2`
 
 The following Apache versions are available:
 * Apache 2.4 (jessie stable)
