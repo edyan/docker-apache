@@ -1,10 +1,10 @@
-# iNet Process Apache Docker Image for PHP FPM
-Docker Hub: https://hub.docker.com/r/inetprocess/apache
+# Apache Docker Image for PHP FPM
+Docker Hub: https://hub.docker.com/r/edyan/apache
 
 Docker container containing Apache that connects to an FPM service.
 
 ## Usage
-Add the following to your docker-compose.yml, assuming that your PHP VM is named `php` (see  [inetprocess/php](https://github.com/inetprocess/docker-php)).
+Add the following to your docker-compose.yml, assuming that your PHP VM is named `php` (see  [edyan/php](https://github.com/edyan/docker-php)).
 
 ```yaml
 apache:
