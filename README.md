@@ -8,7 +8,7 @@ Add the following to your docker-compose.yml, assuming that your PHP VM is named
 
 ```yaml
 apache:
-    image: inetprocess/apache:2.2
+    image: edyan/apache:2.2
     volumes:
         - ./www:/var/www
     ports:
