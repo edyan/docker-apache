@@ -1,5 +1,5 @@
 FROM debian:wheezy-slim
-MAINTAINER Emmanuel Dyan <emmanuel.dyan@inetprocess.com>
+MAINTAINER Emmanuel Dyan <emmanueldyan@gmail.com>
 
 
 RUN sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list

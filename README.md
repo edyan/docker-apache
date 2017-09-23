@@ -15,8 +15,6 @@ apache:
         - 80:80
     links:
         - php
-
-
 ```
 
 
@@ -33,8 +31,9 @@ You can override an `.htaccess` file by putting an `.htaccess.local`, which coul
 
 ## Apache version
 To use a specific Apache version, append the version number to the image name.
-Eg: `image: edyan/apache:2.2`
+Eg: `image: edyan/apache:2.4-slim`
 
 The following Apache versions are available:
+* Apache 2.4-slim (Alpine 3)
 * Apache 2.4 (jessie stable)
 * Apache 2.2 (wheezy stable)
