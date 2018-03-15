@@ -1,19 +1,20 @@
 FROM        debian:jessie-slim
 MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 
-ENV         DEBIAN_FRONTEND noninteractive
+ARG         DEBIAN_FRONTEND=noninteractive
 
+# Installation
 RUN         sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list
 RUN         apt-get update && \
             apt-get upgrade -y && \
-
+            # Install requirements
             apt-get install -y --no-install-recommends apache2 libapache2-mod-fastcgi && \
-
+            # Clean
             apt-get clean && \
             apt-get autoremove -y && \
             rm -Rf /var/lib/apt/lists/* /usr/share/man/* /usr/share/doc/*
 
-
+# COnfiguration
 COPY        vhost.conf /etc/apache2/sites-available/vhost.conf
 RUN         a2enmod actions fastcgi rewrite && \
             a2dissite 000-default.conf && \
