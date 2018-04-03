@@ -10,7 +10,7 @@ Add the following to your docker-compose.yml, assuming that your PHP VM is named
 apache:
     image: edyan/apache:2.2
     volumes:
-        - ./www:/var/www
+        - ./www:/var/www/html
     ports:
         - 80:80
     links:
@@ -19,10 +19,10 @@ apache:
 
 
 ## Environment variables
-Two variables have been created, to override the user and group that owns Apache (and all its files). 
+Two variables have been created, to override the user and group that owns Apache (and all its files).
 That's useful if you need to mount a volume and own the files.
 
-These environment variables are `APACHE_UID` and `APACHE_GID`. 
+These environment variables are `APACHE_UID` and `APACHE_GID`.
 
 
 ## Order of .htaccess
