@@ -10,7 +10,7 @@ Add the following to your docker-compose.yml, assuming that your PHP VM is named
 apache:
     image: edyan/apache:2.2
     volumes:
-        - ./www:/var/www/html
+        - ./www:/var/www
     ports:
         - 80:80
     links:
