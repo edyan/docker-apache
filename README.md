@@ -1,3 +1,6 @@
+[![Layers](https://images.microbadger.com/badges/image/edyan/apache.svg)](https://microbadger.com/images/edyan/apache "Get your own image badge on microbadger.com")
+[![Docker Pulls](https://img.shields.io/docker/pulls/edyan/apache.svg)](https://hub.docker.com/r/edyan/apache/)
+
 # Apache Docker Image for PHP FPM
 Docker Hub: https://hub.docker.com/r/edyan/apache
 
