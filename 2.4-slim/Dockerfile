@@ -1,22 +1,17 @@
-FROM        alpine:3.6
+FROM        alpine:3.8
 MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 
 # Install packages
 RUN         apk update && \
-
             apk upgrade && \
-
             apk add apache2 apache2-proxy && \
-
             rm -rf /var/cache/apk/*
-
 
 # Configure to use php fpm and don't use /var/www to store everything (modules and logs)
 RUN         sed -i 's/LoadModule mpm_prefork_module/#LoadModule mpm_prefork_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule mpm_event_module/LoadModule mpm_event_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule rewrite_module/LoadModule rewrite_module/g' /etc/apache2/httpd.conf && \
             echo "LoadModule slotmem_shm_module modules/mod_slotmem_shm.so" > /etc/apache2/conf.d/slotmem_shm.conf && \
-
             sed -i 's/var\/www\/localhost\/htdocs/var\/www/g' /etc/apache2/httpd.conf && \
             sed -i 's/ServerRoot \/var\/www/ServerRoot \/usr\/local\/apache/g' /etc/apache2/httpd.conf
 
