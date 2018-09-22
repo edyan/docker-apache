@@ -4,16 +4,31 @@ MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 # Install packages
 RUN         apk update && \
             apk upgrade && \
-            apk add apache2 apache2-proxy && \
-            rm -rf /var/cache/apk/*
+            apk add apache2 apache2-proxy shadow && \
+            rm -rf /var/cache/apk/* /var/log/*
 
 # Configure to use php fpm and don't use /var/www to store everything (modules and logs)
 RUN         sed -i 's/LoadModule mpm_prefork_module/#LoadModule mpm_prefork_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule mpm_event_module/LoadModule mpm_event_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule rewrite_module/LoadModule rewrite_module/g' /etc/apache2/httpd.conf && \
+            sed -i 's/LoadModule lbmethod/#LoadModule lbmethod/g' /etc/apache2/conf.d/proxy.conf && \
             echo "LoadModule slotmem_shm_module modules/mod_slotmem_shm.so" > /etc/apache2/conf.d/slotmem_shm.conf && \
             sed -i 's/var\/www\/localhost\/htdocs/var\/www/g' /etc/apache2/httpd.conf && \
             sed -i 's/ServerRoot \/var\/www/ServerRoot \/usr\/local\/apache/g' /etc/apache2/httpd.conf
+
+
+# Prepare env and change user
+RUN         mkdir -p /var/log/apache2
+RUN         groupdel www-data
+RUN         groupmod -g 101 -n www-data apache
+RUN         usermod  -g 101 -u 100 -l www-data -d /var/www apache
+RUN         chown www-data:www-data /var/log/apache2 /var/www
+
+
+# Configuration
+RUN         sed -i 's/^User apache/User www-data/g' /etc/apache2/httpd.conf
+RUN         sed -i 's/^Group apache/Group www-data/g' /etc/apache2/httpd.conf
+
 
 # Create / remove directories according to the conf above
 RUN         rm -rf /var/www/* && \
