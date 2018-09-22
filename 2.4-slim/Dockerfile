@@ -11,11 +11,15 @@ RUN         apk update && \
 RUN         sed -i 's/LoadModule mpm_prefork_module/#LoadModule mpm_prefork_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule mpm_event_module/LoadModule mpm_event_module/g' /etc/apache2/httpd.conf && \
             sed -i 's/#LoadModule rewrite_module/LoadModule rewrite_module/g' /etc/apache2/httpd.conf && \
-            sed -i 's/LoadModule lbmethod/#LoadModule lbmethod/g' /etc/apache2/conf.d/proxy.conf && \
             echo "LoadModule slotmem_shm_module modules/mod_slotmem_shm.so" > /etc/apache2/conf.d/slotmem_shm.conf && \
+            # remove useless module bundled with proxy
+            sed -i 's/LoadModule lbmethod/#LoadModule lbmethod/g' /etc/apache2/conf.d/proxy.conf && \
+            # change ServerRoot
             sed -i 's/var\/www\/localhost\/htdocs/var\/www/g' /etc/apache2/httpd.conf && \
-            sed -i 's/ServerRoot \/var\/www/ServerRoot \/usr\/local\/apache/g' /etc/apache2/httpd.conf
-
+            sed -i 's/ServerRoot \/var\/www/ServerRoot \/usr\/local\/apache/g' /etc/apache2/httpd.conf && \
+            # change user and group
+            sed -i 's/^User apache/User www-data/g' /etc/apache2/httpd.conf && \
+            sed -i 's/^Group apache/Group www-data/g' /etc/apache2/httpd.conf
 
 # Prepare env and change user
 RUN         mkdir -p /var/log/apache2
@@ -26,8 +30,7 @@ RUN         chown www-data:www-data /var/log/apache2 /var/www
 
 
 # Configuration
-RUN         sed -i 's/^User apache/User www-data/g' /etc/apache2/httpd.conf
-RUN         sed -i 's/^Group apache/Group www-data/g' /etc/apache2/httpd.conf
+
 
 
 # Create / remove directories according to the conf above
