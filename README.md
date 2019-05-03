@@ -7,7 +7,8 @@ Docker Hub: https://hub.docker.com/r/edyan/apache
 Docker container containing Apache that connects to an FPM service.
 
 ## Usage
-Add the following to your docker-compose.yml, assuming that your PHP VM is named `php` (see  [edyan/php](https://github.com/edyan/docker-php)).
+Add the following to your docker-compose.yml, assuming that your PHP VM is named `php` 
+(see  [edyan/php](https://github.com/edyan/docker-php)).
 
 ```yaml
 apache:
@@ -16,8 +17,6 @@ apache:
         - ./www:/var/www
     ports:
         - 80:80
-    links:
-        - php
 ```
 
 
@@ -38,5 +37,5 @@ Eg: `image: edyan/apache:2.4-slim`
 
 The following Apache versions are available:
 * Apache 2.4-slim (Alpine 3)
-* Apache 2.4 (jessie stable)
-* Apache 2.2 (wheezy stable)
+* Apache 2.4 (buster stable)
+* Apache 2.2 (wheezy stable / EOL as we need now to do some strange tricks to make it work)

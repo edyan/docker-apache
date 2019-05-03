@@ -1,10 +1,9 @@
-FROM        debian:stretch-slim
+FROM        debian:buster-slim
 MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 
 ARG         DEBIAN_FRONTEND=noninteractive
 
 # Installation
-RUN         sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list
 RUN         apt update && \
             apt upgrade -y && \
             # Install requirements

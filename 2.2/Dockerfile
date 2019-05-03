@@ -3,12 +3,17 @@ MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 
 ARG         DEBIAN_FRONTEND=noninteractive
 
-# Installation
-RUN         sed -i -e 's/ main/ main non-free/' /etc/apt/sources.list
-RUN         apt-get update && \
+
+# Set a default conf for apt install
+RUN         echo 'apt::install-recommends "false";' > /etc/apt/apt.conf.d/no-install-recommends && \
+            # Set right repos
+            echo "deb http://archive.debian.org/debian wheezy main contrib non-free" > /etc/apt/sources.list && \
+            # Upgrade the system + Install all packages
+            apt-get update && \
             apt-get upgrade -y && \
             # Install requirements
-            apt-get install -y --no-install-recommends apache2 libapache2-mod-fastcgi && \
+            apt-get install --reinstall -y --force-yes perl-base=5.14.2-21+deb7u3 libc6=2.13-38+deb7u10 libc-bin=2.13-38+deb7u10 && \
+            apt-get install -y apache2 libapache2-mod-fastcgi && \
             # Clean
             apt-get clean && \
             apt-get autoremove -y && \

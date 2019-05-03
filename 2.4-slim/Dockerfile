@@ -1,4 +1,4 @@
-FROM        alpine:3.8
+FROM        alpine:3.9
 MAINTAINER  Emmanuel Dyan <emmanueldyan@gmail.com>
 
 # Install packages
@@ -19,22 +19,15 @@ RUN         sed -i 's/LoadModule mpm_prefork_module/#LoadModule mpm_prefork_modu
             sed -i 's/ServerRoot \/var\/www/ServerRoot \/usr\/local\/apache/g' /etc/apache2/httpd.conf && \
             # change user and group
             sed -i 's/^User apache/User www-data/g' /etc/apache2/httpd.conf && \
-            sed -i 's/^Group apache/Group www-data/g' /etc/apache2/httpd.conf
-
-# Prepare env and change user
-RUN         mkdir -p /var/log/apache2
-RUN         groupdel www-data
-RUN         groupmod -g 101 -n www-data apache
-RUN         usermod  -g 101 -u 100 -l www-data -d /var/www apache
-RUN         chown www-data:www-data /var/log/apache2 /var/www
-
-
-# Configuration
-
-
-
-# Create / remove directories according to the conf above
-RUN         rm -rf /var/www/* && \
+            sed -i 's/^Group apache/Group www-data/g' /etc/apache2/httpd.conf && \
+            # Prepare env and create user
+            mkdir -p /var/log/apache2 && \
+            groupdel www-data && \
+            groupmod -g 101 -n www-data apache && \
+            usermod  -g 101 -u 100 -l www-data -d /var/www apache && \
+            chown www-data:www-data /var/log/apache2 /var/www && \
+            # Clean base directory and create required ones
+            rm -rf /var/www/* && \
             mkdir -p /run/apache2 /usr/local/apache && \
             ln -s /usr/lib/apache2 /usr/local/apache/modules && \
             ln -s /var/log/apache2 /usr/local/apache/logs
